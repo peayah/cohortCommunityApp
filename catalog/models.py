@@ -10,3 +10,9 @@ class Level(models.Model):
         return self.level_type
 
 
+class Laguage(models.Model):
+    language_type = models.CharField(max_length=200,
+                                  help_text='Enter Language (HTML, CSS, JavaScript, Data, API)')
+
+    def __str__(self):
+        return self.language_type
