@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Upcoming Cohort Events</h1>
+  {% if event_list %}
+  <ul>
+    {% for event in event_list %}
+      <li>
+        <a href="{{ event.get_absolute_url }}">{{ event.title }}</a> ({{event.leader}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no on the calendar events at this time.</p>
+  {% endif %}
+{% endblock %}
