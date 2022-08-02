@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from phone_field import PhoneField
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Level(models.Model):
@@ -29,7 +29,7 @@ class Event(models.Model):
 
     title = models.CharField(max_length=200)
 
-    date = models.DateField(null=True, blank=True)
+    date = models.DateTimeField(blank=True)
 
     # Foreign Key
     leader = models.ForeignKey('Leader',
@@ -40,6 +40,9 @@ class Event(models.Model):
 
     level = models.ManyToManyField(Level,
                                    help_text='Select a level for this event')
+
+    language = models.ManyToManyField(Language,
+                                      help_text='Select a language for this event')
 
     image = models.ImageField(upload_to='images')
 
@@ -62,7 +65,10 @@ class Leader(models.Model):
 
     email = models.EmailField(max_length=254)
 
-    phone = PhoneField(blank=True, help_text='Contact phone number')
+    phone = PhoneNumberField(null=False,
+                             blank=False,
+                             unique=True,
+                             help_text='Contact phone number')
 
     class Meta:
         ordering = ['last_name', 'first_name']
