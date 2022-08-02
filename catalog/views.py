@@ -19,3 +19,7 @@ class EventListView(generic.ListView):
     queryset = Event.objects.filter(title__icontains='API')[
                :5]  # Get 5 events containing the title API
 
+
+class EventDetailView(generic.DetailView):
+    template_name = "event_detail.html"
+    model = Event

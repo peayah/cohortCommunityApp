@@ -12,7 +12,7 @@ class IndexPageTests(SimpleTestCase):
         response = self.client.get(reverse("index"))
         self.assertEqual(response.status_code, 200)
 
-    def test_template_name_correct(self):  # new
+    def test_template_name_correct(self):
         response = self.client.get(reverse("index"))
         self.assertTemplateUsed(response, "index.html")
 
@@ -30,11 +30,11 @@ class AboutPageTests(SimpleTestCase):
         response = self.client.get(reverse("about"))
         self.assertEqual(response.status_code, 200)
 
-    def test_template_name_correct(self):  # new
+    def test_template_name_correct(self):
         response = self.client.get(reverse("about"))
         self.assertTemplateUsed(response, "about.html")
 
-    def test_template_content(self):  # new
+    def test_template_content(self):
         response = self.client.get(reverse("about"))
         self.assertContains(response, "<h1>About</h1>")
 
