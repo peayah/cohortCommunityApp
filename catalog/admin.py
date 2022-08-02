@@ -5,10 +5,10 @@ from .models import Event, Leader, Language, Level
 admin.site.register(Language)
 admin.site.register(Level)
 
+
 @admin.register(Event)
 class LeaderAdmin(admin.ModelAdmin):
-        list_display = ('title', 'date', 'leader')
-
+    list_display = ('title', 'date', 'leader')
 
 
 @admin.register(Leader)
