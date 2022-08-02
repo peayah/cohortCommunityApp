@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>List of Cohort Leaders</h1>
+  {% if leader_list %}
+  <ul>
+    {% for leader in leader_list %}
+      <li>
+        {{ leader.first_name }} {{ leader.last_name }} ( {{ leader.email }} )
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>Something went wrong, were on it. Thank you for your patience</p>
+  {% endif %}
+{% endblock %}

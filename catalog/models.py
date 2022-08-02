@@ -44,7 +44,7 @@ class Event(models.Model):
     language = models.ManyToManyField(Language,
                                       help_text='Select a language for this event')
 
-    image = models.ImageField(upload_to='images')
+    image = models.ImageField(upload_to='static/img/')
 
     def get_absolute_url(self):
         return reverse('event-detail', args=[str(self.id)])

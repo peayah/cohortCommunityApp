@@ -1,9 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+  <img src={{ event.image.url }}>
   <h1>Title: {{ event.title }}</h1>
   <p><strong>Day and Time</strong> {{ event.date }}</p>
-  <p><strong>Leader:</strong> <a href="">{{ event.leader }}</a></p>
+  <p><strong>Leader:</strong> <a href="{{ leader.get_absolute_url }}">{{ event.leader }}</a></p>
   <p><strong>Description:</strong> {{ event.description }}</p>
   <p><strong>Language:</strong> {{ event.language.all|join:", " }}</p>
   <p><strong>Level:</strong> {{ event.level.all|join:", " }}</p>
