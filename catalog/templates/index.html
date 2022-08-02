@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Cohorts</h1>
+  <p>Welcome to cohorts!</p>
+  <h2>Dynamic content</h2>
+  <p>Current cohorts are lined up has the following record counts:</p>
+  <ul>
+    <li><strong>Events:</strong> {{ num_events }}</li>
+    <li><strong>Leaders:</strong> {{ num_leaders }}</li>
+    <li><strong>Levels:</strong> {{ num_levels }}</li>
+    <li><strong>Languages:</strong> {{ num_languages }}</li>
+  </ul>
+{% endblock %}

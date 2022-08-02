@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from .models import Event, Leader, Level, Language
 
+
 def index(request):
     """View function for home page of site."""
 
@@ -14,14 +15,13 @@ def index(request):
 
     num_levels = Level.objects.count()
 
-    num_language = Language.objects.count()
-
+    num_languages = Language.objects.count()
 
     context = {
-        'num_books': num_events,
+        'num_events': num_events,
         'num_leaders': num_leaders,
         'num_levels': num_levels,
-        'num_language': num_language,
+        'num_languages': num_languages,
     }
 
     # Render the HTML template index.html with the data in the context variable
