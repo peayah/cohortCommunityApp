@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Upcoming Cohorts</h1>
+  {% if cohort_list %}
+
+    {% for cohort in cohort_list %}
+        <ul>
+      <li>{{ cohort.leader}}</li>
+      <li>{{ cohort.leader.id}}</li>
+      <li>{{ cohort.leader.first_name}}</li>
+      <li>{{ cohort.leader.last_name}}</li>
+      <li>{{ cohort.leader.email}}</li>
+      <li>{{ cohort.leader.phone}}</li>
+      <li>{{ cohort.leader.events.all|join:", " }}</li>
+      <li>{{ cohort.event.id}}</li>
+      <li>{{ cohort.event.title}}</li>
+      <li>{{ cohort.event.date}}</li>
+      <li>{{ cohort.event.attendees}}</li>
+      <li>{{ cohort.event.description}}</li>
+      <li>{{ cohort.event.level}}</li>
+      <li>{{ cohort.event.language}}</li>
+        </ul>
+    {% endfor %}
+
+  {% else %}
+    <p>There are no on the calendar events at this time.</p>
+  {% endif %}
+{% endblock %}

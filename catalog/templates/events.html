@@ -6,7 +6,7 @@
   <ul>
     {% for event in event_list %}
       <li>
-          {{ event.date }} | <a href="{{ event.get_absolute_url }}">{{ event.title }}</a> (<a href="{{ leader.get_absolute_url }}">{{event.leader}}</a>)
+          {{ event.date }} | <a href="{{ event.get_absolute_url }}">{{ event.title }}</a> (<a href="{{ cohort.leader.get_absolute_url }}">{{event}}{{event.cohort.leader.first_name }}</a>)
       </li>
     {% endfor %}
   </ul>
