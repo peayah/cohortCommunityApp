@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from phonenumber_field.modelfields import PhoneNumberField
+from django.contrib.auth.models import User, AbstractUser
 
 
 class Level(models.Model):
@@ -31,9 +32,7 @@ class Event(models.Model):
 
     date = models.DateTimeField(blank=True)
 
-    # Foreign Key
-    leader = models.ForeignKey('Leader',
-                               on_delete=models.SET_NULL, null=True)
+    attendees = models.IntegerField(default=20)
 
     description = models.TextField(max_length=1000,
                                    help_text='Enter a brief description of tevent')
@@ -53,6 +52,37 @@ class Event(models.Model):
         return self.title
 
 
+class Cohort(models.Model):
+    leader = models.ForeignKey('Leader', related_name="cohorts",
+                               on_delete=models.SET_NULL, null=True )
+
+    event = models.ForeignKey('Event', related_name="cohorts",
+                               on_delete=models.SET_NULL, null=True)
+
+
+class Member(models.Model):
+    m_id = models.AutoField(auto_created=True,
+                          primary_key=True,
+                          serialize=False,
+                          verbose_name='ID')
+    first_name = models.CharField(max_length=100, default="nothing")
+
+    last_name = models.CharField(max_length=100, default="nothing")
+
+    email = models.EmailField(max_length=254,
+                              default="nothing@sample.com"
+                              # unique=True
+                              )
+
+    phone = PhoneNumberField(null=False,
+                             blank=False,
+                             # unique=True,
+                             default="0000000000",
+                             help_text='Contact phone number')
+
+    cohorts = models.ManyToManyField(Cohort)
+
+
 class Leader(models.Model):
     id = models.AutoField(auto_created=True,
                           primary_key=True,
@@ -63,12 +93,15 @@ class Leader(models.Model):
 
     last_name = models.CharField(max_length=100)
 
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=254,
+                             unique=True)
 
     phone = PhoneNumberField(null=False,
                              blank=False,
                              unique=True,
                              help_text='Contact phone number')
+
+    events = models.ManyToManyField(Event, through="Cohort", related_name="leader")
 
     class Meta:
         ordering = ['last_name', 'first_name']
