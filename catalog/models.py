@@ -58,12 +58,14 @@ class Cohort(models.Model):
 
     event = models.ForeignKey('Event', related_name="cohorts",
                                on_delete=models.SET_NULL, null=True)
-    student = models.ForeignKey('Member', related_name="cohorts",
-                                on_delete=models.SET_NULL, null=True)
 
+    student = models.ForeignKey(User,
+                                on_delete=models.SET_NULL,
+                                null=True,
+                                blank=True)
 
 class Member(models.Model):
-    m_id = models.AutoField(auto_created=True,
+    id = models.AutoField(auto_created=True,
                           primary_key=True,
                           serialize=False,
                           verbose_name='ID')
@@ -82,7 +84,7 @@ class Member(models.Model):
                              default="0000000000",
                              help_text='Contact phone number')
 
-    classes = models.ManyToManyField(Event, through="Cohort", related_name="member")
+    cohorts = models.ManyToManyField(Cohort)
 
 
 class Leader(models.Model):
