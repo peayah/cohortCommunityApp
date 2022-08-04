@@ -2,7 +2,6 @@ from django.views.generic import TemplateView
 from django.views import generic
 from catalog.models import Leader
 from catalog.models import Event
-from catalog.models import Cohort
 
 
 class IndexPageView(TemplateView):
@@ -11,15 +10,6 @@ class IndexPageView(TemplateView):
 
 class AboutPageView(TemplateView):
     template_name = "about.html"
-
-
-class CohortListView(generic.ListView):
-    template_name = "cohorts.html"
-    model = Cohort
-    context_object_name = 'cohort_list'
-    paginate_by = 10
-
-
 
 
 class EventListView(generic.ListView):

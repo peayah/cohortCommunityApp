@@ -7,7 +7,7 @@
     {% for leader in leader_list %}
       <li>
         {{ leader.first_name }} {{ leader.last_name }} ( {{ leader.email }} )<br>
-        <strong>Cohort Leads for:</strong> {{ leader.events.all|join:", "}}
+        <strong>Lead for:</strong> {{ events.all|join:", "}}
       </li>
     {% endfor %}
   </ul>

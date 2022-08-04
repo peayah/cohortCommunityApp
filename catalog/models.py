@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import User, AbstractUser
+import uuid
 
 
 class Level(models.Model):
@@ -23,16 +24,16 @@ class Language(models.Model):
 
 
 class Event(models.Model):
-    id = models.AutoField(auto_created=True,
-                          primary_key=True,
-                          serialize=False,
-                          verbose_name='ID')
 
     title = models.CharField(max_length=200)
 
     date = models.DateTimeField(blank=True)
 
     attendees = models.IntegerField(default=20)
+
+    leader = models.ForeignKey('Leader',
+                                        on_delete=models.SET_NULL,
+                                        null=True)
 
     description = models.TextField(max_length=1000,
                                    help_text='Enter a brief description of tevent')
@@ -48,59 +49,42 @@ class Event(models.Model):
     def get_absolute_url(self):
         return reverse('event-detail', args=[str(self.id)])
 
+
     def __str__(self):
         return self.title
 
 
-class Cohort(models.Model):
-    leader = models.ForeignKey('Leader', related_name="cohorts",
-                               on_delete=models.SET_NULL, null=True )
+class EventInstance(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
 
-    event = models.ForeignKey('Event', related_name="cohorts",
-                               on_delete=models.SET_NULL, null=True)
+    cohort = models.ForeignKey('Event', on_delete=models.RESTRICT, null=True)
+
+    attendee = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     STATUS = (
         ('a', 'Attending'),
         ('w', 'Waitlist'),
+        ('n', 'Not Attending'),
     )
 
     status = models.CharField(
         max_length=1,
         choices=STATUS,
         blank=True,
-        default='m',
-        help_text='Book availability',
+        default='n',
     )
 
+    def __str__(self):
+        return f'{self.id} ({self.cohort.title})'
 
-class Member(models.Model):
-    id = models.AutoField(auto_created=True,
-                          primary_key=True,
-                          serialize=False,
-                          verbose_name='ID')
-    first_name = models.CharField(max_length=100, default="nothing")
+    # def get_absolute_url(self):
+    #     return reverse('event-detail', args=[str(self.id)])
 
-    last_name = models.CharField(max_length=100, default="nothing")
 
-    email = models.EmailField(max_length=254,
-                              default="nothing@sample.com"
-                              # unique=True
-                              )
 
-    phone = PhoneNumberField(null=False,
-                             blank=False,
-                             # unique=True,
-                             default="0000000000",
-                             help_text='Contact phone number')
-
-    cohorts = models.ManyToManyField(Cohort)
 
 
 class Leader(models.Model):
-    id = models.AutoField(auto_created=True,
-                          primary_key=True,
-                          serialize=False,
-                          verbose_name='ID')
 
     first_name = models.CharField(max_length=100)
 
@@ -113,8 +97,6 @@ class Leader(models.Model):
                              blank=False,
                              unique=True,
                              help_text='Contact phone number')
-
-    events = models.ManyToManyField(Event, through="Cohort", related_name="leader")
 
     class Meta:
         ordering = ['last_name', 'first_name']
