@@ -59,10 +59,19 @@ class Cohort(models.Model):
     event = models.ForeignKey('Event', related_name="cohorts",
                                on_delete=models.SET_NULL, null=True)
 
-    student = models.ForeignKey(User,
-                                on_delete=models.SET_NULL,
-                                null=True,
-                                blank=True)
+    STATUS = (
+        ('a', 'Attending'),
+        ('w', 'Waitlist'),
+    )
+
+    status = models.CharField(
+        max_length=1,
+        choices=STATUS,
+        blank=True,
+        default='m',
+        help_text='Book availability',
+    )
+
 
 class Member(models.Model):
     id = models.AutoField(auto_created=True,
