@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Cohorts I lead</h1>
+
+    {% if eventinstance_list %}
+    <ul>
+
+      {% for eventinst in eventinstance_list %}
+      <li>
+        <a href="{% url 'event-detail' eventinst.cohort.pk %}">{{eventinst.cohort}}</a>
+      <br>leader: {{eventinst.cohort}}
+      <br>leader: {{eventinst.cohort.leader}}
+      <br>level: {{eventinst.cohort.level}}
+      <br>status: {{eventinst.status}}
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>You are not leading any cohorts at this time.</p>
+    {% endif %}
+{% endblock %}

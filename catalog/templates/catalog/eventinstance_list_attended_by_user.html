@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Attending </h1>
+
+    {% if eventinstance_list %}
+    <ul>
+
+      {% for eventinst in eventinstance_list %}
+      <li >
+        <a href="{% url 'event-detail' eventinst.cohort.pk %}">{{eventinst.cohort.title}}</a>
+
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>You are not signed up for any cohorts.</p>
+    {% endif %}
+{% endblock %}

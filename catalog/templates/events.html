@@ -1,16 +1,33 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Upcoming Events</h1>
-  {% if event_list %}
-  <ul>
-    {% for event in event_list %}
-      <li>
-          {{ event.date }} | <a href="{{ event.get_absolute_url }}">{{ event.title }}</a> (<a href="{{leader.get_absolute_url }}">{{ event.leader }}</a>)
-      </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-    <p>There are no on the calendar events at this time.</p>
-  {% endif %}
+
+<section class="page-section cta">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <div class="cta-inner bg-faded text-center rounded">
+                            <h2 class="section-heading mb-5">
+                                <span class="section-heading-lower">Upcoming Events</span>
+                            </h2>
+                            {% if event_list %}
+                            <ul class="list-unstyled list-hours mb-5 text-left mx-auto">
+                                {% for event in event_list %}
+                                <li class="list-unstyled-item list-hours-item d-flex">
+
+                                    <a href="{{ event.get_absolute_url }}">{{ event.title }} </a>
+                                    <span class="ms-auto">({{ event.level }})</span>
+                                    <span class="ms-auto">{{ event.date }} </span>
+                                </li>
+                               {% endfor %}
+
+                                {% else %}
+                                <p>There are no on the calendar events at this time.</p>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 {% endblock %}

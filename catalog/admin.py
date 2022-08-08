@@ -1,23 +1,21 @@
 from django.contrib import admin
-from .models import Event, Leader, Language, Level, EventInstance
-
-admin.site.register(Language)
-admin.site.register(Level)
+from .models import Event, Leader, EventInstance
 
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date')
+    list_display = ('title', 'date', 'leader', "level", 'language')
 
-
-@admin.register(Leader)
-class LeaderAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'phone', 'email')
+#
+# @admin.register(Leader)
+# class LeaderAdmin(admin.ModelAdmin):
+#     list_display = ('phone')
+admin.site.register(Leader)
 
 
 @admin.register(EventInstance)
 class EventInstanceAdmin(admin.ModelAdmin):
-    list_display = ('cohort', 'status', 'attendee', 'id')
+    list_display = ('cohort', 'status',  'attendee', 'id')
     list_filter = ('cohort', 'status')
 
     fieldsets = (
