@@ -21,6 +21,7 @@ class EventListView(generic.ListView):
     model = Event
     context_object_name = 'event_list'
     paginate_by = 10
+    ordering = ['date']
 
     # queryset = Event.objects.filter(title__icontains='API')[
     #            :5]  # Get 5 events containing the title API
@@ -49,18 +50,22 @@ class AttendedEventByUserListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        # return EventInstance.objects.filter(attendee=self.request.user).filter(
         return EventInstance.objects.filter(attendee=self.request.user).filter(
-            status__exact='a')
+            status__exact='a').order_by('cohort__date')
 
 
-class LeadEventByStaffListView(LoginRequiredMixin, generic.ListView):
-    model = EventInstance
-    template_name = 'catalog/eventinstance_list_lead_by_staff.html'
+class Cohort_and_Attendees_List_View(LoginRequiredMixin, generic.ListView):
+    model = Event
+    template_name = 'catalog/event_list_lead_by_staff.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return EventInstance.objects.filter(cohort__leader = self.request.user).all()
+        return Event.objects.filter(leader=self.request.user.id).all().order_by('date')
+
+    def get_context_data(self, **kwargs):
+        context = super(Cohort_and_Attendees_List_View, self).get_context_data(**kwargs)
+        context['attending_people'] = EventInstance.objects.all()
+        return context
 
 
 class EventInstanceCreate(CreateView):
@@ -76,4 +81,3 @@ class EventInstanceUpdate(UpdateView):
 class EventInstanceDelete(DeleteView):
     model = EventInstance
     success_url = reverse_lazy('eventInstance')
-    

@@ -1,20 +1,45 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Attending </h1>
+    <div class="container">
 
-    {% if eventinstance_list %}
-    <ul>
+        <!-- Card deck -->
+        <div class="card-deck row">
 
-      {% for eventinst in eventinstance_list %}
-      <li >
-        <a href="{% url 'event-detail' eventinst.cohort.pk %}">{{eventinst.cohort.title}}</a>
+            <!-- Card -->
+            {% if eventinstance_list %}
 
-      </li>
-      {% endfor %}
-    </ul>
+            {% for eventinst in eventinstance_list %}
 
-    {% else %}
-      <p>You are not signed up for any cohorts.</p>
-    {% endif %}
+                <div class="col-xs-12 col-sm-6">
+
+                    <div class="card bg-faded">
+                    <!--Card image-->
+                    <div class="view overlay">
+                        <img class="card-img-top" src={{ eventinst.cohort.image.url }}  alt="{{ eventinst.cohort.title }}">
+                         <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                         </a>
+                    </div>
+
+                    <!--Card content-->
+
+                    <div class="card-body">
+                        <!--Title-->
+                        <h2 class="section-heading mb-0"><span class="section-heading-upper">{{ eventinst.cohort.date}}  |  {{ eventinst.cohort.title }}  <a href="{{ event.get_absolute_url }}">  >></a></span></h2>
+                        <!--Text-->
+                    </div>
+
+                </div>
+            </div>
+                {% endfor %}
+                <!-- Card -->
+
+            {% else %}
+              <p>You are not signed up for any cohorts.</p>
+            {% endif %}
+        </div>
+        <!-- Card deck -->
+    </div>
+
 {% endblock %}

@@ -100,4 +100,4 @@ class Leader(models.Model):
         return reverse('leader-detail', args=[str(self.id)])
 
     # def __str__(self):
-    #     return f'{first_name} {self.last_name}'
+    #     return f'{self.first_name} {self.last_name}'

@@ -1,0 +1,51 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+     <div class="container">
+        <!-- Card deck -->
+        <div class="card-deck row">
+            <!-- Card -->'
+            {% if event_list %}
+
+                {% for event in event_list %}
+
+                    <div class="col-xs-12 col-sm-6">
+
+                        <div class="card bg-faded">
+
+                            <!--Card image-->
+                            <div class="view overlay">
+                                <h2 class=" teaching-card-header section-heading mb-0"><span class="section-heading-upper"> {{ event.title }}     |      {{ event.date }}</span></h2>
+                                <div class="view overlay">
+                                <a href="#!">
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+
+                            <!--Card content-->
+                            <div class="bg-brown">
+                                <!--Card content-->
+                                {% for person in attending_people %}
+
+                                {% if  person.cohort.id  ==  event.id  %}
+                                    <p class="teaching-card-content text-primary">
+                                    ( {{person.status}} )
+                                    {{person.attendee.first_name}} {{person.attendee.last_name}}
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-primary">You are not leading any cohorts at this time.</p>
+            {% endif %}
+        </div>
+        <!-- Card deck -->
+
+
+    </div>
+
+{% endblock %}
