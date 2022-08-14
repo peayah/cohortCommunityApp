@@ -70,14 +70,31 @@ class Cohort_and_Attendees_List_View(LoginRequiredMixin, generic.ListView):
 
 class EventInstanceCreate(CreateView):
     model = EventInstance
-    fields = ['cohort', 'status']
+    fields = ['cohort', 'status', "leader", "attendee"]
 
 
 class EventInstanceUpdate(UpdateView):
     model = EventInstance
-    fields = 'attending'
+    fields = ['cohort', 'status', "leader", "attendee"]
 
 
 class EventInstanceDelete(DeleteView):
     model = EventInstance
     success_url = reverse_lazy('eventInstance')
+
+
+class EventCreate(CreateView):
+    model = Event
+    fields = ['title', 'date', 'attendees', 'leader', 'status', 'description', 'status',
+              'level', 'language', 'image']
+
+
+class EventUpdate(UpdateView):
+    model = Event
+    fields = ['title', 'date', 'attendees', 'leader', 'status', 'description', 'status',
+              'level', 'language', 'image']
+
+
+class EventDelete(DeleteView):
+    model = Event
+    success_url = reverse_lazy('event')

@@ -6,7 +6,6 @@ import uuid
 
 
 class Event(models.Model):
-
     title = models.CharField(max_length=200)
 
     date = models.DateTimeField(blank=True)
@@ -27,7 +26,8 @@ class Event(models.Model):
         default='t',
     )
 
-    description = models.TextField(max_length=1000, help_text='Enter a brief description of tevent')
+    description = models.TextField(max_length=1000,
+                                   help_text='Enter a brief description of tevent')
 
     LEVEL_CHOICES = (
         ('all levels', 'ALL'),
@@ -86,7 +86,6 @@ class EventInstance(models.Model):
 
 
 class Leader(models.Model):
-
     leader = models.ForeignKey(User,
                                on_delete=models.SET_NULL,
                                null=True)

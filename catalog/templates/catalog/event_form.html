@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+{% block content %}
+    <section class="page-section clearfix">
+        <div class="container">
+            <div class="intro">
+                <img class="intro-img img-fluid mb-3 mb-lg-0 rounded"
+                     src="/static/img/admin-screen.jpg"
+                     alt="two people working at computer"/>
+                <div class="intro-text left-0 text-left bg-faded p-5 rounded">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <table>
+                            {{ form.as_table }}
+                        </table>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

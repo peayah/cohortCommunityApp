@@ -4,7 +4,8 @@ from .models import Event, Leader, EventInstance
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'leader', "level", 'language')
+    list_display = ('title', 'date', 'leader', "level", 'language', 'id')
+
 
 #
 # @admin.register(Leader)
@@ -15,12 +16,12 @@ admin.site.register(Leader)
 
 @admin.register(EventInstance)
 class EventInstanceAdmin(admin.ModelAdmin):
-    list_display = ('cohort', 'status',  'attendee', 'id')
+    list_display = ('cohort', 'status', 'attendee', 'id')
     list_filter = ('cohort', 'status')
 
     fieldsets = (
         (None, {
-            'fields': ('cohort','id')
+            'fields': ('cohort', 'id')
         }),
         ('Sign-ups', {
             'fields': ('status', 'attendee')

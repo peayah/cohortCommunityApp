@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% block title %}<title>Coding Cohorts</title>{% endblock %}
-
+    {% block title %}<title>Coding Cohorts</title>{% endblock %}
     <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <!-- Add additional CSS in static file -->
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="icon" type="image/x-icon" href=src="/static/img/favicon.ico">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
 {% block sidebar %}
@@ -21,32 +24,45 @@
         </h1>
     </header>
     <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Coding Cohorts</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto">
-                      <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'index' %}">Home</a></li>
-                      <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'about' %}">About</a></li>
-                      <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'events' %}">events</a></li>
-                    {% if user.is_authenticated %}
-                        <li class="nav-item px-lg-4 text-primary text-uppercase">Logged in as:<br>{{ user.get_username }}</li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'my-attending' %}">Attending</a></li>
-                    {% if user.is_staff %}
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'my-leading' %}">Leading</a></li>
-                    {% endif %}
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-                    {% else %}
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-                    {% endif %}
-                    </ul>
-                    {% endblock %}
-                </div>
-            </div>
-        </nav>
-
-      {% block content %}{% endblock %}
+    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+    <div class="container">
+    <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Coding
+        Cohorts</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mx-auto">
+        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'index' %}">Home</a></li>
+        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'about' %}">About</a></li>
+        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'events' %}">events</a></li>
+        {% if user.is_authenticated %}
+            <li class="nav-item px-lg-4 text-primary text-uppercase">Logged in
+                as:<br>{{ user.get_username }}</li>
+            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase"
+                                            href="{% url 'my-attending' %}">Attending</a>
+            </li>
+            {% if user.is_staff %}
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase"
+                                                href="{% url 'my-leading' %}">Leading</a>
+                </li>
+            {% endif %}
+            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase"
+                                            href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase"
+                                            href="{% url 'login' %}?next={{ request.path }}">Login</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+</div>
+</div>
+</nav>
+{% block content %}{% endblock %}
 
 {% block pagination %}
     {% if is_paginated %}
@@ -64,10 +80,7 @@
             </span>
         </div>
     {% endif %}
-  {% endblock %}
-
-
-
+{% endblock %}
 {% include 'footer.html' %}
 </body>
 </html>
