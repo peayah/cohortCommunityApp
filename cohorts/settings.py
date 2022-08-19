@@ -35,7 +35,11 @@ SECRET_KEY = os.environ['SECRET_KEY'] # Instead of your actual secret key
 # DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    'cohortapp.herokuapp.com',
+    '127.0.0.1'
+]
 
 # Application definition
 
