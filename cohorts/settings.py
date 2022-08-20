@@ -22,7 +22,7 @@ dotenv_file = os.path.join(BASE_DIR, ".env")
 # UPDATE secret key
 SECRET_KEY = os.environ['SECRET_KEY']
 
-DEBUG = True
+DEBUG = False
 # DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = [
@@ -86,6 +86,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -154,3 +158,10 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 
 django_heroku.settings(locals())
+
+
+
+django_heroku.settings(locals())
+
+options = DATABASES['default'].get('OPTIONS', {})
+options.pop('sslmode', None)
