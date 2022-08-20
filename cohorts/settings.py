@@ -18,8 +18,8 @@ if os.path.isfile(dotenv_file):
 # UPDATE secret key
 SECRET_KEY = os.environ['SECRET_KEY']
 
-# DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = False
+# DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
