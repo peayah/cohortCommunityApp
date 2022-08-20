@@ -2,9 +2,9 @@ from pathlib import Path
 import os
 import django_heroku
 import dj_database_url
-import dotenv
+# import dotenv
 import export as export
-import dj_database_url
+# import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -12,8 +12,8 @@ import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 dotenv_file = os.path.join(BASE_DIR, ".env")
-if os.path.isfile(dotenv_file):
-    dotenv.load_dotenv(dotenv_file)
+# if os.path.isfile(dotenv_file):
+#     dotenv.load_dotenv(dotenv_file)
 
 # UPDATE secret key
 SECRET_KEY = os.environ['SECRET_KEY']
