@@ -8,5 +8,3 @@
 ### Django ###
 *.log
 *.pot
-__pycache__/
-local_settings.py.env
