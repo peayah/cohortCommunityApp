@@ -1,1 +1,1 @@
-web: gunicorn cohorts.wsgi
+web: gunicorn cohorts.wsgi --log-file -
